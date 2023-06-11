@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 import random
+from os import environ as env
 
 app = FastAPI(title="RandomId_App",
     description="APP RandomId",
@@ -15,8 +16,11 @@ app = FastAPI(title="RandomId_App",
 
 @app.get("/")
 def index():
-    return {"Index": "OK"}
+    return {"Index": f"OK {env['MY_VARIABLE']}"}
 
 @app.get("/randomId/{id}")
 def get_number(id:int):
-    return {"output": f" {id*2022 + random.randint(1,10)} "}
+    ran_a=random.randint(1,10)
+    return {"id":f"{str(id)}",
+            "Random":f"{ran_a}",
+            "output": f" {id*2022 + ran_a} "}
